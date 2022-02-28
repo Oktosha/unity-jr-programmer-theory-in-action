@@ -1,6 +1,7 @@
 using UnityEngine;
 
-public class PlayerMovement : MonoBehaviour
+// INHERITANCE
+public class PlayerMovement : PausableInputHandler
 {
     public float jumpForce;
     public float movementSpeed;
@@ -14,7 +15,8 @@ public class PlayerMovement : MonoBehaviour
         myCollider2D = GetComponent<Collider2D>();
     }
 
-    private void Update()
+    // POLYMORPHISM
+    protected override void HandleInput()
     {
         if (Input.GetKeyDown(KeyCode.Space) && IsGrounded())
         {
@@ -23,6 +25,12 @@ public class PlayerMovement : MonoBehaviour
 
         float xInput = Input.GetAxis("Horizontal");
         myRigidbody2D.velocity = new Vector2(xInput * movementSpeed, myRigidbody2D.velocity.y); // left/right movement
+    }
+
+    // POLYMORPHISM
+    protected override void HandlePauseInInput()
+    {
+        myRigidbody2D.velocity = new Vector2(0, myRigidbody2D.velocity.y); // reset input on Horizontal axis to zero
     }
 
     // ABSTRACTION

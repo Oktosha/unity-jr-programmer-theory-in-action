@@ -19,4 +19,13 @@ public class Inventory : MonoBehaviour
         }
     }
     private int m_coinCount = 0;
+    [SerializeField] private InventoryDisplay[] inventoryDisplays;
+
+    private void Update()
+    {
+        foreach (InventoryDisplay display in inventoryDisplays)
+        {
+            display.SetCoins(coinCount);
+        }
+    }
 }
